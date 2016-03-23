@@ -13,7 +13,7 @@ module.exports = {
         tasks: ["imagemin"]
     },
     styles: {
-        files: "sources/styles/**/*.styl",
+        files: "sources/styles/**/*.{styl, css}",
         tasks: ["stylus:dev", "postcss", "cmq"]
     },
     html: {
