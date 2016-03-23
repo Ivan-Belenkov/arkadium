@@ -1,0 +1,32 @@
+default:
+  description: 'Default (production) build'
+  tasks:
+    - buildProd
+
+buildDev:
+  description: '(development) build'
+  tasks:
+    - clean
+    - concurrent:devgroup
+    - connect
+    - watch
+
+buildProd:
+  description: '(production) build'
+  tasks:
+    - clean
+    - concurrent:prodgroup
+
+cssDev:
+  description: '(development) build css'
+  tasks:
+    - stylus:dev
+    - postcss
+    - cmq
+
+cssProd:
+  description: '(production) build css'
+  tasks:
+    - stylus:prod
+    - postcss
+    - cmq
