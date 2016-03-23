@@ -147,8 +147,6 @@ class LeaderboardComponentController {
         _ctrl.leaderboard = [];
 
         _ctrl.getData(_ctrl.activePeriod, _ctrl.activeGame);
-
-        console.dir(angular.element(".leaderboard__persons"));
     }
 
     toggleGameList() {
