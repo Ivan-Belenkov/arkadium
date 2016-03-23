@@ -14,7 +14,7 @@ function dataRetrieverService($http, $q) {
             gameKey = game.id ? game.id : "all",
             dataAddress;
         if (!personsData[period.periodKey][gameKey]) {
-            dataAddress =  game.id ? `/data/${period.periodKey}/${game.id}/data.json` : `/data/${period.periodKey}/data.json`;
+            dataAddress =  game.id ? `data/${period.periodKey}/${game.id}/data.json` : `data/${period.periodKey}/data.json`;
 
             $http({method: "GET",url: dataAddress})
                 .then(function(response) {
