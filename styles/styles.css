@@ -1,0 +1,961 @@
+.mCustomScrollbar {
+	-ms-touch-action: pinch-zoom;
+	touch-action: pinch-zoom; /* direct pointer events to js */
+}
+
+.mCustomScrollbar.mCS_no_scrollbar,
+.mCustomScrollbar.mCS_touch_action {
+	-ms-touch-action: auto;
+	touch-action: auto;
+}
+
+.mCustomScrollBox { /* contains plugin's markup */
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	max-width: 100%;
+	outline: none;
+	direction: ltr;
+}
+
+.mCSB_container { /* contains the original content */
+	overflow: hidden;
+	width: auto;
+	height: auto;
+}
+
+/* 
+------------------------------------------------------------------------------------------------------------------------
+2. VERTICAL SCROLLBAR 
+y-axis
+------------------------------------------------------------------------------------------------------------------------
+*/
+
+.mCSB_inside > .mCSB_container {
+	margin-right: 3px;
+}
+
+.mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
+	margin-right: 0;
+}
+
+/* non-visible scrollbar */
+
+.mCSB_scrollTools { /* contains scrollbar markup (draggable element, dragger rail, buttons etc.) */
+	position: absolute;
+	width: 3px;
+	height: auto;
+	left: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.mCSB_outside + .mCSB_scrollTools {
+	right: -26px;
+}
+
+/* scrollbar position: outside */
+
+.mCSB_scrollTools .mCSB_draggerContainer { /* contains the draggable element and dragger rail markup */
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: auto;
+}
+
+.mCSB_scrollTools a + .mCSB_draggerContainer {
+	margin: 20px 0;
+}
+
+.mCSB_scrollTools .mCSB_draggerRail {
+	width: 3px;
+	height: 100%;
+	margin: 0;
+	border-radius: 16px;
+}
+
+.mCSB_scrollTools .mCSB_dragger { /* the draggable element */
+	cursor: pointer;
+	width: 100%;
+	height: 30px; /* minimum dragger height */
+	z-index: 1;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar { /* the dragger element */
+	position: relative;
+	width: 3px;
+	height: 100%;
+	border-radius: 16px;
+	text-align: center;
+}
+
+/* 
+------------------------------------------------------------------------------------------------------------------------
+3. HORIZONTAL SCROLLBAR 
+x-axis
+------------------------------------------------------------------------------------------------------------------------
+*/
+
+.mCSB_horizontal.mCSB_inside > .mCSB_container {
+	margin-right: 0;
+	margin-bottom: 3px;
+}
+
+.mCSB_horizontal.mCSB_outside > .mCSB_container {
+	min-height: 100%;
+}
+
+.mCSB_horizontal > .mCSB_container.mCS_no_scrollbar_x.mCS_x_hidden {
+	margin-bottom: 0;
+}
+
+/* non-visible scrollbar */
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal {
+	width: auto;
+	height: 3px;
+	top: auto;
+	right: 7px;
+	bottom: 0;
+	left: 7px;
+}
+
+.mCustomScrollBox + .mCSB_scrollTools.mCSB_scrollTools_horizontal,
+.mCustomScrollBox + .mCSB_scrollTools + .mCSB_scrollTools.mCSB_scrollTools_horizontal {
+	bottom: -26px;
+}
+
+/* scrollbar position: outside */
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal a + .mCSB_draggerContainer {
+	margin: 0 20px;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_draggerRail {
+	width: 100%;
+	height: 3px;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger {
+	width: 30px; /* minimum dragger width */
+	height: 100%;
+	left: 0;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+	width: 100%;
+	height: 3px;
+}
+
+/* 
+------------------------------------------------------------------------------------------------------------------------
+4. VERTICAL AND HORIZONTAL SCROLLBARS 
+yx-axis 
+------------------------------------------------------------------------------------------------------------------------
+*/
+
+.mCSB_container_wrapper {
+	position: absolute;
+	height: auto;
+	width: auto;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin-right: 12px;
+	margin-bottom: 12px;
+}
+
+.mCSB_container_wrapper > .mCSB_container {
+	padding-right: 12px;
+	padding-bottom: 12px;
+	box-sizing: border-box;
+}
+
+.mCSB_vertical_horizontal > .mCSB_scrollTools.mCSB_scrollTools_vertical {
+	bottom: 7px;
+	top: 7px;
+}
+
+.mCSB_vertical_horizontal > .mCSB_scrollTools.mCSB_scrollTools_horizontal {
+	right: 7px;
+	left: 7px;
+}
+
+/*------------------------------------------------------------------------------------------------------------------------
+5. TRANSITIONS  
+------------------------------------------------------------------------------------------------------------------------
+*/
+
+.mCSB_scrollTools,
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCSB_scrollTools .mCSB_buttonUp,
+.mCSB_scrollTools .mCSB_buttonDown,
+.mCSB_scrollTools .mCSB_buttonLeft,
+.mCSB_scrollTools .mCSB_buttonRight {
+	transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
+}
+
+.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_dragger_bar,
+/* auto-expanded scrollbar */
+	.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail,
+.mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_dragger_bar,
+.mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail {
+	transition: width .2s ease-out .2s, height .2s ease-out .2s, 
+					margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, 
+					margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s,
+					opacity .2s ease-in-out, background-color .2s ease-in-out;
+}
+
+/* 
+------------------------------------------------------------------------------------------------------------------------
+6. SCROLLBAR COLORS, OPACITY AND BACKGROUNDS  
+------------------------------------------------------------------------------------------------------------------------
+*/
+
+/* 
+	----------------------------------------
+	6.1 THEMES 
+	----------------------------------------
+	*/
+
+/* default theme ("light") */
+
+.mCSB_scrollTools {
+	opacity: 0.75;
+	filter: "alpha(opacity=75)";
+	-ms-filter: "alpha(opacity=75)";
+}
+
+.mCS-autoHide > .mCustomScrollBox > .mCSB_scrollTools,
+.mCS-autoHide > .mCustomScrollBox ~ .mCSB_scrollTools {
+	opacity: 0;
+	filter: "alpha(opacity=0)";
+	-ms-filter: "alpha(opacity=0)";
+}
+
+.mCustomScrollbar > .mCustomScrollBox > .mCSB_scrollTools.mCSB_scrollTools_onDrag,
+.mCustomScrollbar > .mCustomScrollBox ~ .mCSB_scrollTools.mCSB_scrollTools_onDrag,
+.mCustomScrollBox:hover > .mCSB_scrollTools,
+.mCustomScrollBox:hover ~ .mCSB_scrollTools,
+.mCS-autoHide:hover > .mCustomScrollBox > .mCSB_scrollTools,
+.mCS-autoHide:hover > .mCustomScrollBox ~ .mCSB_scrollTools {
+	opacity: 1;
+	filter: "alpha(opacity=100)";
+	-ms-filter: "alpha(opacity=100)";
+}
+
+.mCSB_scrollTools .mCSB_draggerRail {
+	background-color: #807f81;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+	background-color: #423f4d;
+}
+
+/*.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{*/
+
+/*background-color: #fff; background-color: rgba(255,255,255,0.85);*/
+
+/*filter: "alpha(opacity=85)"; -ms-filter: "alpha(opacity=85)"; */
+
+/*}*/
+
+/*.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,*/
+
+/*.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{*/
+
+/*background-color: #fff; background-color: rgba(255,255,255,0.9);*/
+
+/*filter: "alpha(opacity=90)"; -ms-filter: "alpha(opacity=90)"; */
+
+/*}*/
+
+/*}*/
+
+/*** arkadium --> fonts **!*/
+
+@font-face {
+	font-family: 'HelveticaNeue';
+	src: url("../fonts/HelveticaNeue.eot");
+	src: url("../fonts/HelveticaNeue.eot?#iefix") format('embedded-opentype'), url("../fonts/HelveticaNeue.woff2") format('woff2'), url("../fonts/HelveticaNeue.woff") format('woff'), url("../fonts/HelveticaNeue.ttf") format('truetype'), url("../fonts/HelveticaNeue.svg#HelveticaNeue") format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Candara-Bold';
+	src: url("../fonts/Candara-Bold.eot");
+	src: url("../fonts/Candara-Bold.eot?#iefix") format('embedded-opentype'), url("../fonts/Candara-Bold.woff2") format('woff2'), url("../fonts/Candara-Bold.woff") format('woff'), url("../fonts/Candara-Bold.ttf") format('truetype'), url("../fonts/Candara-Bold.svg#Candara-Bold") format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*** arkadium --> end of fonts **!*/
+
+html {
+	font-family: sans-serif;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+audio:not([controls]) {
+	display: none;
+	height: 0;
+}
+
+[hidden],
+template {
+	display: none;
+}
+
+a {
+	background: transparent;
+}
+
+a:active,
+a:hover {
+	outline: 0;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+dfn {
+	font-style: italic;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+mark {
+	background: #ff0;
+	color: #000;
+}
+
+small {
+	font-size: 80%;
+}
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+img {
+	border: 0;
+}
+
+svg:not(root) {
+	overflow: hidden;
+}
+
+figure {
+	margin: 1em 40px;
+}
+
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+
+pre {
+	overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: monospace, monospace;
+	font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+
+button {
+	overflow: visible;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+	cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+input {
+	line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	box-sizing: border-box;
+	padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+input[type="search"] {
+	-webkit-appearance: textfield;
+	box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+fieldset {
+	border: 1px solid #c0c0c0;
+	margin: 0 2px;
+	padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+	border: 0;
+	padding: 0;
+}
+
+textarea {
+	overflow: auto;
+}
+
+optgroup {
+	font-weight: bold;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+th,
+td {
+	padding: 0;
+}
+
+/*** arkadium --> main **!*/
+
+* {
+	line-height: 1;
+	outline: none !important;
+}
+
+.clearfix {
+	zoom: 1;
+}
+
+.clearfix:after,
+.clearfix:before {
+	content: "";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+html,
+body {
+	height: 100%;
+	min-width: 300px;
+}
+
+/*** arkadium --> end of main **!*/
+
+/*** arkadium --> leaderboard **!*/
+
+.leaderboard {
+	position: relative;
+	height: 100%;
+	font-family: "Candara-Bold", Arial, sans-serif;
+	overflow: hidden;
+}
+
+.leaderboard__header {
+	background-color: #e56d48;
+}
+
+.leaderboard__logo {
+	float: left;
+	height: 18px;
+	line-height: 18px;
+	font-size: 18px;
+	margin-left: 20px;
+	margin-top: 11px;
+	color: #fff;
+}
+
+.leaderboard__nav-ctrl {
+	float: right;
+	text-indent: -9999px;
+	font-size: 0;
+	height: 40px;
+	width: 35px;
+	background-color: transparent;
+	border: none;
+	padding: 14px 15px 14px 0;
+}
+
+.leaderboard__nav-ctrl span {
+	height: 2px;
+	background-color: #fff;
+	display: block;
+}
+
+.leaderboard__nav-ctrl span:before,
+.leaderboard__nav-ctrl span:after {
+	content: '';
+	display: block;
+	position: relative;
+	height: 2px;
+	background-color: #fff;
+}
+
+.leaderboard__nav-ctrl span:before {
+	top: -4px;
+}
+
+.leaderboard__nav-ctrl span:after {
+	top: 2px;
+}
+
+.leaderboard__tab-ctrl {
+	font-size: 0;
+}
+
+.leaderboard__tab-ctrl_wide {
+	float: right;
+	margin-top: 11px;
+	display: none;
+}
+
+.leaderboard__tab-ctrl_narrow {
+	padding: 8px 0 5px;
+	border-bottom: 1px solid #ec9479;
+	box-shadow: inset 0 -1px #f8d8ce;
+}
+
+.leaderboard__tab-item {
+	font-size: 14px;
+	display: inline-block;
+	vertical-align: middle;
+	transition: font-size 0.2s ease, color 0.2s ease;
+	box-sizing: border-box;
+}
+
+.leaderboard__tab-item_active {
+	font-size: 18px;
+}
+
+.leaderboard__tab-ctrl_wide .leaderboard__tab-item_active .leaderboard__tab-link {
+	color: #fff;
+}
+
+.leaderboard__tab-ctrl_wide .leaderboard__tab-item + .leaderboard__tab-item {
+	border-left: 1px solid #f9ddd4;
+}
+
+.leaderboard__tab-ctrl_narrow .leaderboard__tab-item {
+	width: 33.333333%;
+	border-width: 0 1px;
+	border-style: solid;
+	border-left-color: #f8f8f8;
+	border-right-color: #e9e8e8;
+}
+
+.leaderboard__tab-ctrl_narrow .leaderboard__tab-item:first-child {
+	border-left-color: transparent;
+}
+
+.leaderboard__tab-ctrl_narrow .leaderboard__tab-item:last-child {
+	border-right-color: transparent;
+}
+
+.leaderboard__tab-ctrl_narrow .leaderboard__tab-item_active .leaderboard__tab-link {
+	color: #e56d48;
+}
+
+.leaderboard__tab-link {
+	display: block;
+	height: 18px;
+	line-height: 17px;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.leaderboard__tab-ctrl_wide .leaderboard__tab-link {
+	width: 106px;
+	color: #000;
+}
+
+.leaderboard__tab-ctrl_narrow .leaderboard__tab-link {
+	color: #807f81;
+}
+
+.leaderboard__persons {
+	position: absolute;
+	top: 72px;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow: auto;
+	width: 100%;
+	padding-right: 7px;
+	box-sizing: border-box;
+}
+
+.leaderboard__list {
+	list-style: none;
+	padding: 0;
+	margin: 10px 0 0;
+}
+
+.leaderboard__item:nth-child(even) {
+	background-color: #e2e1e1;
+}
+
+.leaderboard__item + .leaderboard__item {
+	border-top: 1px solid #f1f1f1;
+}
+
+.leaderboard__card {
+	font-size: 18px;
+	font-family: "HelveticaNeue", Arial, sans-serif;
+	padding: 8px 0 8px 32px;
+	position: relative;
+}
+
+.leaderboard__card-badge {
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 43px;
+	height: 40px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.leaderboard__card_gold .leaderboard__card-badge,
+.leaderboard__card_silver .leaderboard__card-badge,
+.leaderboard__card_bronze .leaderboard__card-badge {
+	display: block;
+}
+
+.leaderboard__card_gold .leaderboard__card-badge {
+	background-image: url("../images/badge-gold.png");
+}
+
+.leaderboard__card_silver .leaderboard__card-badge {
+	background-image: url("../images/badge-silver.png");
+}
+
+.leaderboard__card_bronze .leaderboard__card-badge {
+	background-image: url("../images/badge-bronze.png");
+}
+
+.leaderboard__card-position {
+	position: absolute;
+	box-sizing: border-box;
+	top: -5px;
+	left: 0;
+	width: 40px;
+	height: 20px;
+	font-size: 14px;
+	line-height: 18px;
+	color: #423f4d;
+	border-width: 1px 1px 1px 0;
+	border-style: solid;
+	border-color: #e56d48;
+	border-radius: 2px;
+	background-color: #fff;
+	text-align: right;
+	padding-right: 7px;
+}
+
+.leaderboard__card_gold .leaderboard__card-position,
+.leaderboard__card_silver .leaderboard__card-position,
+.leaderboard__card_bronze .leaderboard__card-position {
+	font-size: 18px;
+	color: #fe5400;
+}
+
+.leaderboard__card-border {
+	width: 78px;
+	height: 78px;
+	border-radius: 39px;
+	padding: 4px 3px 1px 2px;
+	background-color: #70d7fd;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1;
+	float: left;
+	margin-right: -39px;
+}
+
+.leaderboard__card-cover {
+	overflow: hidden;
+	width: 73px;
+	height: 73px;
+	line-height: 0;
+	border-radius: 37px;
+}
+
+.leaderboard__card-fullname {
+	margin: 10px 60px 10px 84px;
+	text-transform: uppercase;
+}
+
+.leaderboard__card-count {
+	background-color: #70d7fd;
+	text-align: right;
+	margin-left: 39px;
+	padding-right: 6px;
+	height: 22px;
+	line-height: 22px;
+}
+
+.leaderboard__card_gold .leaderboard__card-count {
+	color: #ff5050;
+}
+
+.leaderboard__games {
+	position: absolute;
+	top: 40px;
+	bottom: 0;
+	width: 100%;
+	right: -100%;
+	background-color: #fff;
+	z-index: 2;
+	box-shadow: inset 0 -1px 0 #ddd;
+	border-bottom: 1px solid #a2a1a3;
+	overflow: auto;
+	padding-right: 7px;
+	box-sizing: border-box;
+	transition: right 0.3s ease;
+}
+
+.gamelist-opened .leaderboard__games {
+	right: 0;
+}
+
+.leaderboard__gamelist {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	font-family: "HelveticaNeue", Arial, sans-serif;
+	font-size: 18px;
+}
+
+.leaderboard__gamelist-item {
+	box-shadow: inset 0 -1px 0 #ddd;
+	font-size: 18px;
+}
+
+.leaderboard__gamelist-item + .leaderboard__gamelist-item {
+	border-top: 1px solid #a2a1a3;
+}
+
+.leaderboard__gamelist-link {
+	text-transform: uppercase;
+	display: block;
+	text-decoration: none;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 16px;
+	height: 31px;
+	line-height: 31px;
+	color: #99999a;
+}
+
+.leaderboard__gamelist-item_active .leaderboard__gamelist-link {
+	color: #e56d48;
+}
+
+/*** arkadium --> end of leaderboard **!*/
+
+@media screen and (min-width: 560px) {
+
+.leaderboard {
+	height: auto;
+}
+
+.leaderboard__tab-ctrl_wide {
+	display: block;
+}
+
+.leaderboard__tab-ctrl_narrow {
+	display: none;
+}
+
+.leaderboard__persons {
+	position: relative;
+	top: auto;
+	width: auto;
+	margin-top: 7px;
+	height: 160px;
+	padding-right: 0;
+	transition: margin-right 0.3s ease;
+}
+
+.gamelist-opened .leaderboard__persons {
+	margin-right: 260px;
+}
+
+.leaderboard__list {
+	font-size: 0;
+	white-space: nowrap;
+	margin: 0;
+	padding: 0 7px;
+}
+
+.leaderboard__item {
+	display: inline-block;
+	vertical-align: top;
+	width: 110px;
+}
+
+.leaderboard__item + .leaderboard__item {
+	border-left: 1px solid #f1f1f1;
+	border-top: none;
+}
+
+.leaderboard__card {
+	padding: 0;
+}
+
+.leaderboard__card-badge {
+	right: auto;
+	left: 1px;
+	top: 57px;
+	width: 30px;
+	height: 28px;
+}
+
+.leaderboard__card_gold .leaderboard__card-badge {
+	background-image: url("../images/badge-gold_small.png");
+}
+
+.leaderboard__card_silver .leaderboard__card-badge {
+	background-image: url("../images/badge-silver_small.png");
+}
+
+.leaderboard__card_bronze .leaderboard__card-badge {
+	background-image: url("../images/badge-bronze_small.png");
+}
+
+.leaderboard__card-position {
+	border-width: 1px;
+	width: 30px;
+	padding-right: 3px;
+	top: 4px;
+	left: 1px;
+}
+
+.leaderboard__card-border {
+	float: none;
+	margin: 5px 4px 0 28px;
+}
+
+.leaderboard__card-fullname {
+	margin: 6px 5px 4px;
+	text-align: center;
+	line-height: 18px;
+	font-size: 14px;
+}
+
+.leaderboard__card-count {
+	margin-left: 0;
+	text-align: center;
+}
+
+.leaderboard__games {
+	width: 260px;
+	border-left: 1px solid #000;
+}
+
+}
+
